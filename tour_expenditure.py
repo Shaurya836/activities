@@ -1,37 +1,61 @@
 '''
-Problem - I 
+Tour Expenditure at Given Hotel 
 
-sentence = "Hey I am walking here I am walking here o captain my captain water water everywhere nor a drop to drik"
-print(verse, "\n")
+The family has spent the vacation in Goa and now they are returning home to do so they will have to check out from the hotel.
 
-# split sentence into list of words
-sentence_list =  # You will have to fill out the function 
-print(sentence_list, '\n')
+Tariff on Room: Delux Room- 7500 INR
 
-# convert list to set to get unique words
-sentence_set = 
-print(sentence_set, '\n')
+                            Non AC Room- 4500 INR 
 
-# print the number of unique words
-num_unique = 
-print(num_unique, '\n')
+You  as a developer has to create a program for a hotel owner which has the following requirements,
+
+The program should begin with taking input from the checkout counter 
+
+Type of room booked 
+Total number of days 
+Total Amount on Food (Amount is expected )
+There are the following cases to be considered while generating a bill.
+
+The tax on food amount is dependent on the type of room booked.
+
+Tax on food for the deluxe room will be billed  18% of the total food amount.
+
+Tax on food for the Non AC room will be billed  5% of the total food amount.
+
+You are supposed to include a tip of 10% on the food amount.
+
+The output from your program should include;
+
+The  Room Tariff on the number of days spend, GST on a meal(Breakdown of GST is necessary based on CGST and SGST and same has to get reflected on console ) 
+
+The tip amount, and the grand total for the meal including both the tax and the tip.
+
+Format the output so that all of the values are displayed using two decimal places.
 '''
 
-sentence = "Hey I am walking here I am walking here o captain my captain water water everywhere nor a drop to drik"
+class HotelBill:
+    def _init_(self, room_type: str, num_days: int, food_amount: float):
+        self.room_type = room_type
+        self.num_days = num_days
+        self.food_amount = food_amount
 
-# split sentence into list of words
+    def calculate_bill(self):
+        if self.room_type == 'Delux Room':
+            room_tariff = 7500 * self.num_days
+            food_tax = 0.18 * self.food_amount
+        elif self.room_type == 'Non AC Room':
+            room_tariff = 4500 * self.num_days
+            food_tax = 0.05 * self.food_amount
+        else:
+            raise ValueError("Invalid room type")
+        
+        tip_amount = 0.1 * self.food_amount
+        cgst = sgst = 0.5 * food_tax
+        total_amount = room_tariff + self.food_amount + food_tax + tip_amount + cgst + sgst
 
-sentence_list = []
-words = sentence.split()
-sentence_list.extend(words)
-print(sentence_list,"\n")
-
-# convert list to set to get unique words
-
-sentence_set = set(sentence_list)
-print(sentence_set,"\n")
-
-# print the number of unique words
-
-num_unique = len(sentence_set)
-print(num_unique)
+        print(f"Room Tariff: {room_tariff:.2f}")
+        print(f"GST on Food: CGST {cgst:.2f}, SGST {sgst:.2f}")
+        print(f"Tip Amount: {tip_amount:.2f}")
+        print(f"Total Bill: {total_amount:.2f}")
+bill = HotelBill('Delux Room', 5, 3000)
+bill.calculate_bill()
